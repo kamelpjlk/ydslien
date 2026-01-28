@@ -70,7 +70,7 @@ export function AnimatedLogo() {
       transition={spring}
     >
       <motion.img
-        src="/logo.png"
+        src="/ydslien/logo.png"
         alt="DIGITAL STEP Creative Agency Logo"
         className="w-28 h-28 md:w-36 md:h-36 lg:w-40 lg:h-40 object-contain pointer-events-none"
         drag={false}
