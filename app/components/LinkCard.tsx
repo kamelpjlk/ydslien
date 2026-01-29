@@ -6,6 +6,7 @@ import {
   Globe,
   Facebook,
   Instagram,
+  Phone,
   LucideIcon,
 } from "lucide-react";
 
@@ -13,6 +14,7 @@ const LINK_ICONS: Record<string, LucideIcon> = {
   website: Globe,
   facebook: Facebook,
   instagram: Instagram,
+  phone: Phone,
 };
 
 const CARD_THEMES: Record<
@@ -30,40 +32,48 @@ const CARD_THEMES: Record<
   }
 > = {
   website: {
-    bg: "bg-teal-500/10",
-    border: "border-teal-500/20",
-    hoverBg: "hover:bg-teal-500/20",
-    hoverBorder: "hover:border-teal-500/40",
-    iconBg: "bg-teal-500/20",
-    iconHoverBg: "group-hover:bg-teal-500/30",
-    iconColor: "text-teal-400",
-    iconHoverColor: "group-hover:text-teal-300",
-    titleHoverColor: "group-hover:text-teal-300",
+    bg: "bg-violet-900",
+    border: "border-violet-600",
+    hoverBg: "hover:bg-violet-800",
+    hoverBorder: "hover:border-violet-500",
+    iconBg: "bg-violet-600",
+    iconHoverBg: "group-hover:bg-violet-500",
+    iconColor: "text-white",
+    iconHoverColor: "group-hover:text-violet-100",
+    titleHoverColor: "group-hover:text-violet-300",
   },
   facebook: {
-    bg: "bg-[#1877F2]/10",
-    border: "border-[#1877F2]/20",
-    hoverBg: "hover:bg-[#1877F2]/20",
-    hoverBorder: "hover:border-[#1877F2]/40",
-    iconBg: "bg-[#1877F2]/20",
-    iconHoverBg: "group-hover:bg-[#1877F2]/30",
-    iconColor: "text-[#1877F2]",
-    iconHoverColor: "group-hover:text-[#42A5F5]",
+    bg: "bg-[#0d3a6e]",
+    border: "border-[#1877F2]",
+    hoverBg: "hover:bg-[#134a85]",
+    hoverBorder: "hover:border-[#42A5F5]",
+    iconBg: "bg-[#1877F2]",
+    iconHoverBg: "group-hover:bg-[#2563eb]",
+    iconColor: "text-white",
+    iconHoverColor: "group-hover:text-blue-100",
     titleHoverColor: "group-hover:text-[#42A5F5]",
   },
   instagram: {
-    bg: "bg-gradient-to-br from-purple-600/10 via-pink-600/10 to-orange-500/10",
-    border: "border-purple-500/20",
-    hoverBg:
-      "hover:from-purple-600/20 hover:via-pink-600/20 hover:to-orange-500/20",
-    hoverBorder: "hover:border-pink-500/40",
-    iconBg:
-      "bg-gradient-to-br from-purple-600/20 via-pink-600/20 to-orange-500/20",
-    iconHoverBg:
-      "group-hover:from-purple-600/30 group-hover:via-pink-600/30 group-hover:to-orange-500/30",
-    iconColor: "text-pink-400",
-    iconHoverColor: "group-hover:text-pink-300",
+    bg: "bg-gradient-to-br from-purple-900 to-orange-900",
+    border: "border-purple-500",
+    hoverBg: "hover:from-purple-800 hover:to-orange-800",
+    hoverBorder: "hover:border-pink-500",
+    iconBg: "bg-gradient-to-br from-purple-600 to-orange-600",
+    iconHoverBg: "group-hover:from-purple-500 group-hover:to-orange-500",
+    iconColor: "text-white",
+    iconHoverColor: "group-hover:text-pink-100",
     titleHoverColor: "group-hover:text-pink-300",
+  },
+  phone: {
+    bg: "bg-emerald-900",
+    border: "border-emerald-600",
+    hoverBg: "hover:bg-emerald-800",
+    hoverBorder: "hover:border-emerald-500",
+    iconBg: "bg-emerald-600",
+    iconHoverBg: "group-hover:bg-emerald-500",
+    iconColor: "text-white",
+    iconHoverColor: "group-hover:text-emerald-100",
+    titleHoverColor: "group-hover:text-emerald-300",
   },
 };
 
@@ -81,12 +91,13 @@ export function LinkCard({ item, index = 0 }: LinkCardProps) {
   const Icon = LINK_ICONS[item.id] ?? Globe;
   const theme = CARD_THEMES[item.id] ?? CARD_THEMES.website;
 
+  const isPhone = item.href.startsWith("tel:");
+
   return (
     <motion.a
       href={item.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`group relative block w-full p-4 ${theme.bg} backdrop-blur-sm border ${theme.border} rounded-xl ${theme.hoverBg} ${theme.hoverBorder} transition-all duration-300`}
+      {...(isPhone ? {} : { target: "_blank", rel: "noopener noreferrer" })}
+      className={`group relative block w-full p-4 ${theme.bg} border ${theme.border} rounded-xl ${theme.hoverBg} ${theme.hoverBorder} transition-all duration-300`}
       whileHover={{ scale: 1.02, y: -2 }}
       whileTap={{ scale: 0.98 }}
       initial={{ opacity: 0, x: -100 }}
@@ -118,12 +129,18 @@ export function LinkCard({ item, index = 0 }: LinkCardProps) {
         </div>
         <motion.div
           className="flex-shrink-0"
-          whileHover={{ rotate: 45 }}
+          whileHover={{ rotate: isPhone ? 0 : 45 }}
           transition={{ type: "spring", stiffness: 400, damping: 20 }}
         >
-          <ExternalLink
-            className={`w-4 h-4 text-gray-400 ${theme.iconHoverColor} transition-colors`}
-          />
+          {isPhone ? (
+            <Phone
+              className={`w-4 h-4 text-gray-300 group-hover:text-white ${theme.iconHoverColor} transition-colors`}
+            />
+          ) : (
+            <ExternalLink
+              className={`w-4 h-4 text-gray-300 group-hover:text-white ${theme.iconHoverColor} transition-colors`}
+            />
+          )}
         </motion.div>
       </div>
     </motion.a>

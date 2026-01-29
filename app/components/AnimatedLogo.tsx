@@ -36,7 +36,7 @@ export function AnimatedLogo() {
 
   return (
     <motion.div
-      className="flex cursor-grab active:cursor-grabbing select-none touch-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-orange1/60 focus-visible:ring-offset-2 focus-visible:ring-offset-primary-blackblue rounded-xl"
+      className={`flex relative cursor-grab active:cursor-grabbing select-none touch-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-orange1/60 focus-visible:ring-offset-2 focus-visible:ring-offset-primary-blackblue rounded-xl ${isDragging ? "z-[100]" : ""}`}
       style={{
         x,
         y,

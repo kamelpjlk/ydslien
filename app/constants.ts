@@ -17,4 +17,10 @@ export const LINKS = [
     href: "https://www.facebook.com/Y.Digital.Step",
     description: "Follow us on Facebook",
   },
+  {
+    id: "phone",
+    title: "Call us",
+    href: "tel:0660768165",
+    description: "Tap to call 0660768165",
+  },
 ];
